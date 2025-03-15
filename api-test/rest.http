@@ -1,0 +1,89 @@
+###
+@baseurl = http://localhost:8000
+
+###########################################################
+##### AUTH ################################################
+
+# @name signin
+GET {{baseurl}}/signin
+Authorization: Basic filipefilpe@gmail.com:1234
+
+###
+@authToken = {{signin.response.body.$}}
+
+# @name signout
+GET {{baseurl}}/signout
+Authorization: Bearer {{authToken}}
+
+
+
+###########################################################
+##### USERS ###############################################
+
+###
+GET {{baseurl}}/users
+Authorization: Bearer {{authToken}}
+
+###
+POST {{baseurl}}/users
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "filipefilpe@gmail.com",
+    "password": "1234"
+}
+
+
+
+###########################################################
+##### BRANDS ##############################################
+
+###
+GET {{baseurl}}/brands
+Authorization: Bearer {{authToken}}
+
+###
+POST {{baseurl}}/brands
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "name": "Fortrek"
+}
+
+
+
+###########################################################
+##### PRODUCTS ############################################
+
+###
+GET {{baseurl}}/products
+Authorization: Bearer {{authToken}}
+
+###
+POST {{baseurl}}/products
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "name": "Teclado Mecanico - envio de email 2",
+    "price": 890.55,
+    "brandId": "633d4454-4b74-474f-bae5-5fbe5d908dfd"
+}
+
+###
+PUT {{baseurl}}/products/2448f470-29a5-4952-9e4e-9c03ed7621eb
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+    "name": "Teclado Mecanico",
+    "price": 890.55,
+    "brandId": "7cc595ec-f75f-45d8-af7b-c96c63b310ba"
+}
+
+###
+DELETE {{baseurl}}/products/5709d0f3-0ff0-47a0-932b-48901e2e7fdc
+Authorization: Bearer {{authToken}}
